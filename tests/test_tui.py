@@ -97,6 +97,20 @@ async def test_right_panel_toggle() -> None:
         assert panel.display
 
 
+async def test_entry_box_toggle() -> None:
+    async with Browser(
+        skhep_testdata.data_path("uproot-Event.root")
+    ).run_test() as pilot:
+        entry_box = pilot.app.query_one("#plot-input-container")
+        assert not entry_box.display
+
+        await pilot.press("e")
+        assert entry_box.display
+
+        await pilot.press("e")
+        assert not entry_box.display
+
+
 async def test_browse_plot() -> None:
     async with Browser(
         skhep_testdata.data_path("uproot-Event.root")

@@ -3,16 +3,12 @@ from __future__ import annotations
 __lazy_modules__ = {"importlib", "importlib.metadata", "textual.app"}
 
 import importlib.metadata
-from typing import TYPE_CHECKING, cast
 
 import textual.app
 import textual.containers
 import textual.widgets
 
 from .. import __version__
-
-if TYPE_CHECKING:
-    from .browser import Browser
 
 
 class Tools(textual.containers.Container):
@@ -25,12 +21,6 @@ class Tools(textual.containers.Container):
                 value=self.app.theme,
                 id="theme-select",
             )
-        with (
-            textual.widgets.Collapsible(title="Plot", collapsed=False),
-            textual.containers.Horizontal(),
-        ):
-            yield textual.widgets.Label("Entry box")
-            yield textual.widgets.Switch()
 
     def on_mount(self) -> None:
         # Keep the Select in sync with the app theme. init=True syncs the value
@@ -40,15 +30,6 @@ class Tools(textual.containers.Container):
 
     def _sync_theme(self, theme: str) -> None:
         self.query_one("#theme-select", textual.widgets.Select).value = theme
-
-    @textual.on(textual.widgets.Switch.Changed)
-    def switch_changed(self, event: textual.widgets.Switch.Changed) -> None:
-        self.app.query_one("#plot-input-container").set_class(
-            event.value, "-show-container"
-        )
-        # The entry box takes space from the plot, so plot again at the new size
-        view = cast("Browser", self.app).view_widget
-        view.call_after_refresh(view.request_render)
 
     @textual.on(textual.widgets.Select.Changed, "#theme-select")
     def theme_changed(self, event: textual.widgets.Select.Changed) -> None:

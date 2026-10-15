@@ -35,10 +35,6 @@ Label {
   padding-bottom: 1;
 }
 
-Switch {
-  dock: right;
-}
-
 #logo {
     content-align: center middle;
     height: 100%;

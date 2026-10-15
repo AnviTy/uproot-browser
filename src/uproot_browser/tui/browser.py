@@ -75,6 +75,7 @@ class Browser(textual.app.App[None]):
     BINDINGS: ClassVar[list[textual.binding.BindingType]] = [
         textual.binding.Binding("b", "toggle_files", "Navbar"),
         textual.binding.Binding("r", "toggle_right_panel", "Right Panel"),
+        textual.binding.Binding("e", "toggle_entry_box", "Entry Box"),
         textual.binding.Binding("/", "jump", "Jump"),
         textual.binding.Binding("q", "quit", "Quit"),
         textual.binding.Binding("d", "quit_with_dump", "Dump & Quit"),
@@ -150,6 +151,12 @@ class Browser(textual.app.App[None]):
     def action_toggle_right_panel(self) -> None:
         """Toggle the typed axis controls and render scale panel."""
         self.show_right_panel = not self.show_right_panel
+
+    def action_toggle_entry_box(self) -> None:
+        """Toggle the plot expression entry box."""
+        entry_box = self.view_widget.input_container
+        entry_box.toggle_class("-show-container")
+        self.view_widget.call_after_refresh(self.view_widget.request_render)
 
     def watch_show_right_panel(self, show: bool) -> None:  # noqa: FBT001
         """Called when the right panel visibility changes."""
