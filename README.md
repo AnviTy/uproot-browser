@@ -56,7 +56,7 @@ uproot-browser browse --testdata uproot-Event.root
 
 When a plottable object is selected in `browse`, the right-side **Axis scaling** panel provides typed fields for the X and Y limits. Press **Enter** in a field or choose **Apply ranges** to update the plot. Leave a field blank to use the automatic range, or choose **Reset to automatic** to clear both axes.
 
-The existing image render scale control is also located in this panel when using `browse --image`. The Tree, Tools, and Info tabs remain on the left; the Tools tab contains the theme selector. Use the following keyboard shortcuts from the bottom footer:
+The render scale control (in `browse --image`) and theme selector are also located in this panel. The Tree and Info tabs remain on the left. Use the following keyboard shortcuts from the bottom footer:
 
 ```text
 b  Navbar       r  Right Panel       e  Entry Box       q  Quit       d  Dump & Quit

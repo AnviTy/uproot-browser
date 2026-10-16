@@ -51,7 +51,7 @@ from .left_panel import UprootTree
 from .plot import Plotext, PlotItem, selection_source
 from .right_panel import RightPanel
 from .theme import DARK_BACKGROUND, DARK_TEXT, LIGHT_BACKGROUND
-from .tools import Info, Tools
+from .tools import Info
 from .viewer import ViewWidget
 
 # Registered under our own names to avoid overriding plotext's built-in themes.
@@ -109,12 +109,6 @@ class Browser(textual.app.App[None]):
             with textual.widgets.TabbedContent(id="left-view"):
                 with textual.widgets.TabPane("Tree", id="tree-tab"):
                     yield UprootTree(self.path, id="tree-view")
-                with textual.widgets.TabPane("Tools"):
-                    # Not lazy: lazy-mounting a Select races its internal mount
-                    # (SelectCurrent.update queries "#label" before that child is
-                    # mounted), which crashes on slow runners. Tools is cheap to
-                    # build anyway; only the Info tab is worth deferring.
-                    yield Tools()
                 with textual.widgets.TabPane("Info"):
                     yield textual.lazy.Lazy(Info())
             # main_panel
